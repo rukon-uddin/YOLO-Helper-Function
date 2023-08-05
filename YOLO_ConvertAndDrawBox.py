@@ -76,7 +76,7 @@ def draw_bbox(
 
 
 if __name__ == "__main__":
-    img = cv2.imread("test_images/cycle.jpg")
+    img = cv2.imread("test_images/Motorcycle.jpg")
     
     ###################### Using list of normalized coordinates################################
     # norm_coord = [0.588137, 0.705081, 0.586461, 0.589839]
@@ -87,9 +87,9 @@ if __name__ == "__main__":
     # cv2.destroyAllWindows()
     
     ##################### using the string of normalized coordinates ##########################
-    norm_coord = open("test_images/cycle.txt").read().strip().split(" ")[1:]  # reading the coordinates from the txt file generated after annotating
+    norm_coord = open("test_images/Motorcycle.txt").read().strip().split(" ")[1:]  # reading the coordinates from the txt file generated after annotating
     x1, y1, x2, y2 = denormalize_yolo_coordinates(img, norm_coord)
-    final_img = draw_bbox(img, "Cycle", (12, 255, 45), 2, x1, y1, x2, y2)
+    final_img = draw_bbox(img, "Bike", (255, 0, 0), 2, x1, y1, x2, y2)
     cv2.imshow('img', final_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
