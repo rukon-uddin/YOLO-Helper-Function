@@ -33,3 +33,9 @@ This repository is created to help people who are working with yolo. This are so
     </td>
   </tr>
 </table>
+
+
+### YOLO_SwapClassIndex.py
+**Why to Use:** This can be helpful when you want to change the annotated index to some other index. For example you have annotated the car images as index 0, now you want to change the index to 2 becuase you have trained the model for car as index 2, then you can use this function. 
+
+If you dont face the problem, its really hard to explain.
