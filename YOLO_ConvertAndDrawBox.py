@@ -76,7 +76,31 @@ def draw_bbox(
 
 
 if __name__ == "__main__":
-    img = cv2.imread("test_images/Motorcycle.jpg")
+    # Only add the image file name
+    img_file = "chittagong_bohoddarhat1_5310.jpg"
+    txt_file = img_file.replace(".jpg", ".txt")
+    
+    final_img = cv2.imread(img_file)
+
+    classes_txt = f"classes.txt" # path of the classes.txt
+
+    """ # classes.txt
+    bicycle
+    bus
+    car
+    cart_vehicle
+    construction_vehicle
+    """
+
+    class_index = {}
+    count = {}
+    cls = open(classes_txt)
+    cls = cls.read().split("\n")
+    for i, c in enumerate(cls):
+        if len(c) == 0:
+            continue
+        class_index[i] = c
+        count[c] = 0
     
     ###################### Using list of normalized coordinates################################
     # norm_coord = [0.588137, 0.705081, 0.586461, 0.589839]
@@ -86,10 +110,21 @@ if __name__ == "__main__":
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
     
-    ##################### using the string of normalized coordinates ##########################
-    norm_coord = open("test_images/Motorcycle.txt").read().strip().split(" ")[1:]  # reading the coordinates from the txt file generated after annotating
-    x1, y1, x2, y2 = denormalize_yolo_coordinates(img, norm_coord)
-    final_img = draw_bbox(img, "Bike", (255, 0, 0), 2, x1, y1, x2, y2)
+    ##################### using annotation text file ##########################
+
+    norm_coord = open(txt_file).read().split("\n")
+    for i in norm_coord:
+        i = i.strip()
+        if i == '':
+            continue
+        nc = i.split(" ")
+        nc = list(map(np.float32, nc))
+        x1, y1, x2, y2 = denormalize_yolo_coordinates(final_img, nc[1:])
+        idx = nc[0]
+        final_img = draw_bbox(final_img, class_index[idx], (255, 0, 0), 2, x1, y1, x2, y2)
+
+    final_img = cv2.resize(final_img, (0,0), fx=0.5, fy=0.5) # Comment this line to stop resizing image
+
     cv2.imshow('img', final_img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
