@@ -3,6 +3,7 @@ import os
 from tqdm import tqdm
 import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 print("Counting number of classes in training ....")
 img_dir = "test_images" # image and txt directory.
@@ -24,7 +25,6 @@ img_list = sorted(img_list)
 txt_list = sorted(txt_list)
 print(f"Total number of images in training Dataset -> {len(img_list)}\n\n")
 
-
 total_guard = 0
 total_twoR = 0
 total_oneR = 0
@@ -42,5 +42,6 @@ df = pd.DataFrame({
     "Count": list(count.values())
 })
 
+plt.figure(figsize=(20, 6)) # figsize=(width, height)
 sns.barplot(x = "Classes", y = "Count", data=df, palette="Blues")
 print(count)

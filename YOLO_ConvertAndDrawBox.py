@@ -78,7 +78,7 @@ def draw_bbox(
 if __name__ == "__main__":
     # Only add the image file name
     img_file = "chittagong_bohoddarhat1_5310.jpg"
-    txt_file = img_file.replace(".jpg", ".txt")
+    txt_file = img_file.replace(".jpg", ".txt") # Add image extension if required
     
     final_img = cv2.imread(img_file)
 
